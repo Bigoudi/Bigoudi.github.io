@@ -269,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/18/我的第一篇文章/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/18/ECO文章阅读/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xy Wang">
@@ -288,7 +288,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/09/18/我的第一篇文章/" itemprop="url">我的第一篇文章</a></h1>
+                <a class="post-title-link" href="/2017/09/18/ECO文章阅读/" itemprop="url">ECO文章阅读</a></h1>
         
 
         <div class="post-meta">
@@ -300,7 +300,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-18T16:07:36+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-18T19:16:11+08:00">
                 2017-09-18
               </time>
             
@@ -310,28 +310,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/软件安装/" itemprop="url" rel="index">
-                    <span itemprop="name">软件安装</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -362,7 +340,21 @@
       
         
           
-            <p>第一篇，看看有没有分类和标签？</p>
+            <h2 id="Efficient-Convolution-Operator-for-Tracking"><a href="#Efficient-Convolution-Operator-for-Tracking" class="headerlink" title="Efficient Convolution Operator for Tracking"></a>Efficient Convolution Operator for Tracking</h2><p>#Abstract<br>DCF及其相关算法的缺陷：</p>
+<ol>
+<li>使用CNN特征，卷积过程耗时，实时性不好</li>
+<li>越来越复杂的模型，使得需要训练的参数变得非常多，容易造成过拟合</li>
+</ol>
+<p>ECO针对<strong>计算复杂度</strong>和<strong>过拟合</strong>这两个问题，提出：</p>
+<blockquote>
+<ol>
+<li>一个被分解的卷积算子： 很大程度上减少了模型参数</li>
+<li>一个用于生成训练样本分布的模型： 降低了存储和时间复杂度，同时提供更高质量的多样性样本</li>
+<li>一个保守的模型更新策略： 具有更好的鲁棒性和更低的复杂度</li>
+</ol>
+</blockquote>
+<p><strong>与C-COT相比</strong>：速度是20倍，EAO增长13%；<br>使用hand-crafted特征(OTB2015)：AUC=65%</p>
+<p>#Introduction</p>
 
           
         
@@ -582,25 +574,7 @@
           
 
           
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
 
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
           
 
         </nav>
@@ -644,7 +618,9 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright" >
   
   &copy; 
   <span itemprop="copyrightYear">2017</span>
@@ -828,5 +804,8 @@
 
   
 
+  
+  
+  
 </body>
 </html>
