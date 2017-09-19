@@ -82,7 +82,7 @@
 <meta property="og:image" content="http://i2.bvimg.com/612246/4b31a4af9cd038ba.jpg">
 <meta property="og:image" content="http://i2.bvimg.com/612246/d176225b24fcfdb9.jpg">
 <meta property="og:image" content="http://i4.bvimg.com/612246/17778ac68dd4b8fd.jpg">
-<meta property="og:updated_time" content="2017-09-19T08:32:12.594Z">
+<meta property="og:updated_time" content="2017-09-19T08:33:06.394Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ECO文章阅读">
 <meta name="twitter:description" content="Efficient Convolution Operator for Tracking(更新中…)以下均为个人理解，如有错误，欢迎指正！ AbstractDCF及其相关算法的缺陷：   使用CNN特征，卷积过程耗时，实时性不好 越来越复杂的模型，使得需要训练的参数变得非常多，容易造成过拟合   ECO针对计算复杂度和过拟合这两个问题，提出：   一个被因式分解的卷积运算： 很大程度上减少了DCF模">
@@ -436,8 +436,8 @@
 <p><img src="http://i2.bvimg.com/612246/d176225b24fcfdb9.jpg" alt=""></p>
 <p><strong>components的更新策略：</strong>每帧更新</p>
 <p>新的一帧到来时，若components的个数超过 L，则首先用新样本建立一个独立的组件，然后：如果权值最小的组件的权重小于阈值，则丢弃；否则合并权重最小的那两个组件。<br><img src="http://i4.bvimg.com/612246/17778ac68dd4b8fd.jpg" alt=""></p>
-<h4 id="两种训练样本的对比："><a href="#两种训练样本的对比：" class="headerlink" title="两种训练样本的对比："></a>两种训练样本的对比：</h4><p>原来的DCF模型每一帧更新：新的一阵检测完毕后，首先提取一个新样本，添加到训练样本中，然后选择最近的N个样本对滤波器参数进行学习和更新，作为下一帧的迭代初始值；</p>
 </blockquote>
+<h4 id="两种训练样本的对比："><a href="#两种训练样本的对比：" class="headerlink" title="两种训练样本的对比："></a>两种训练样本的对比：</h4><p>原来的DCF模型每一帧更新：新的一阵检测完毕后，首先提取一个新样本，添加到训练样本中，然后选择最近的N个样本对滤波器参数进行学习和更新，作为下一帧的迭代初始值；</p>
 <p>而ECO选择不那么频繁的更新策略：每Ns（约等于5帧）进行更新。当新的一帧检测完毕后，首先提取新样本，用于更新components构成的训练样本。当间隔时间达到5帧时，利用components构成的训练样本对滤波器参数和矩阵增量进行学习和更新。</p>
 <p>相对于之前的训练样本，新增的样本是一个mini-batch而不再只有一个单个的样本，这会使训练出来的滤波器参数更加稳定：因为DCF中，如果新增的单个样本发生突变时，也会用于训练，但这样训练结果将不够准确了。</p>
 <h3 id="3-更新策略：不那么频繁，防止过拟合，鲁棒性更好"><a href="#3-更新策略：不那么频繁，防止过拟合，鲁棒性更好" class="headerlink" title="3. 更新策略：不那么频繁，防止过拟合，鲁棒性更好"></a>3. 更新策略：不那么频繁，防止过拟合，鲁棒性更好</h3><h4 id="滤波器的更新："><a href="#滤波器的更新：" class="headerlink" title="滤波器的更新："></a>滤波器的更新：</h4><p>固定帧数 Ns(=5)更新</p>
