@@ -82,7 +82,7 @@
 <meta property="og:image" content="http://i2.bvimg.com/612246/4b31a4af9cd038ba.jpg">
 <meta property="og:image" content="http://i2.bvimg.com/612246/d176225b24fcfdb9.jpg">
 <meta property="og:image" content="http://i4.bvimg.com/612246/17778ac68dd4b8fd.jpg">
-<meta property="og:updated_time" content="2017-09-19T08:02:10.127Z">
+<meta property="og:updated_time" content="2017-09-19T08:04:23.117Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ECO文章阅读">
 <meta name="twitter:description" content="Efficient Convolution Operator for Tracking(更新中…) AbstractDCF及其相关算法的缺陷：   使用CNN特征，卷积过程耗时，实时性不好 越来越复杂的模型，使得需要训练的参数变得非常多，容易造成过拟合   ECO针对计算复杂度和过拟合这两个问题，提出：   一个被因式分解的卷积运算： 很大程度上减少了DCF模型中的参数 一个用于生成训练样本分布的">
@@ -421,7 +421,7 @@
 <p>（2）<strong>训练样本集的大小：</strong> 迭代一次，滤波器参数更新一次。迭代次数越高，学习到的参数越精确，因此需要大量的训练数据，然而又由于存储空间受限，所以选择丢弃老的样本，但只用新样本会造成跟踪器和近期变化的外观拟合的好，并不代表能够精确跟踪最初的目标，可能发生跟丢的现象；</p>
 <p>（3）<strong>模型更新：</strong> 过往的DCF都是连续每帧都对滤波器参数进行更新，但这样的更新方案对目标一点点的外观变化都非常敏感，很容易过拟合。且每帧都更新降低了速度，过拟合造成鲁棒性降低。</p>
 </blockquote>
-<h2 id="Main-Idea-of-ECO"><a href="#Main-Idea-of-ECO" class="headerlink" title="Main Idea of ECO"></a><strong>Main Idea of ECO</strong></h2><p><strong>（1）因式分解滤波器，达到降维的目的，减少了需要学习的滤波器参数</strong><br>&gt;</p>
+<h2 id="Main-Idea-of-ECO"><a href="#Main-Idea-of-ECO" class="headerlink" title="Main Idea of ECO"></a><strong>Main Idea of ECO</strong></h2><p><strong>（1）因式分解滤波器，达到降维的目的，减少了需要学习的滤波器参数</strong></p>
 <blockquote>
 <p>将滤波器和特征的卷积公式进行因式分解，<br><img src="http://i2.bvimg.com/612246/8c7ca3936e382b9d.jpg" alt=""></p>
 <p>具体过程为：<br>先把原来的D个通道的滤波器分解成了一个D乘C的矩阵P和C个通道的滤波器的乘积,即{f1,f2,…,fD}=P{f1,f2,…,fC}。这样就变成了下式<img src="http://i2.bvimg.com/612246/2951b3377bc2f589.jpg" alt=""></p>
@@ -432,7 +432,7 @@
 <p>原来的DCF每一帧更新：新的一帧检测完毕以后，提取一个单个的训练样本，加到训练样本集中。更新时采用就近原则，丢弃老旧样本，选择最近的一些样本进行训练。这样做的缺点是：相邻帧的目标外观非常相似，造成训练样本集的信息冗余，且容易造成与最近的目标拟合的很好，和久远的目标拟合的不好的现象。</p>
 <p><img src="http://i2.bvimg.com/612246/a032734d865e1e85.jpg" alt=""></p>
 </blockquote>
-<h3 id="本文中："><a href="#本文中：" class="headerlink" title="本文中："></a>本文中：</h3><p><img src="http://i2.bvimg.com/612246/4b31a4af9cd038ba.jpg" alt=""><br>&gt;</p>
+<h3 id="本文中："><a href="#本文中：" class="headerlink" title="本文中："></a>本文中：</h3><p><img src="http://i2.bvimg.com/612246/4b31a4af9cd038ba.jpg" alt=""></p>
 <blockquote>
 <p>所以，本文<strong>利用高斯混合模型（GMM）对我们的样本集进行分类</strong>，得到 L 个不同的components,每一个组件都有一个权重和一个特征均值，用它们分别替代原来公式的样本权重和样本。这样就将训练过程中使用的样本数从M减少到了L（节省了存储空间），且增加了样本多样性（不同类别的样本均值代替）。</p>
 <p><img src="http://i2.bvimg.com/612246/d176225b24fcfdb9.jpg" alt=""></p>
