@@ -403,12 +403,12 @@
 <blockquote>
 <p>首先介绍连续域时，即t在[0,T）范围内时，卷积运算的定义如下：<br><img src="http://i1.bvimg.com/612246/010d6b8466a020c8.jpg" alt="Alt text"></p>
 </blockquote>
-<p>假设有<strong>M</strong>个训练样本：<img src="http://chart.googleapis.com/chart?cht=tx&chl= \[\{ {x_1},...,{x_j},...{x_M}\} \]" style="border:none;"></p>
-<p>每个样本的空间为<img src="http://i1.bvimg.com/612246/8b15e51c671150b2.jpg" alt=""></p>
-<p>(2)其中N1是第一通道特征图的分辨率,ND是第D个通道的空间点个数。</p>
-<p>(3)每个训练样本有D个通道（即有D个通道的特征）：<img src="http://i1.bvimg.com/612246/a3e3e111c32ba91f.jpg" alt=""></p>
-<p>而每个通道的特征为：<img src="http://i1.bvimg.com/612246/89ad2bd18c37d84a.jpg" alt=""></p>
-<p>Nd是第d个通道特征的size。</p>
+<p>假设有<strong>M</strong>个训练样本：<br><img src="http://chart.googleapis.com/chart?cht=tx&chl= \[\{ {x_1},...,{x_j},...{x_M}\} \]" style="border:none;"></p>
+<blockquote>
+<p>每个样本的空间为<br><img src="http://i1.bvimg.com/612246/8b15e51c671150b2.jpg" alt=""><br>，其中N1是第一通道特征图的分辨率,ND是第D个通道的空间点个数。</p>
+<p>每个训练样本有D个通道（即有D个通道的特征）<br><img src="http://i1.bvimg.com/612246/a3e3e111c32ba91f.jpg" alt=""></p>
+<p>而每个通道的特征表示为<br><img src="http://i1.bvimg.com/612246/89ad2bd18c37d84a.jpg" alt=""><br>（Nd是第d个通道特征的size）</p>
+</blockquote>
 <h3 id="内插公式："><a href="#内插公式：" class="headerlink" title="内插公式："></a><strong>内插公式：</strong><img src="http://i2.bvimg.com/612246/5e19ae1a5543a611.jpg" alt=""></h3><p>&gt;</p>
 <blockquote>
 <p><strong>作用：</strong>将特征图从离散域转换到连续域，原来多种分辨率的样本全都统一到了相同的定义域<img src="http://chart.googleapis.com/chart?cht=tx&chl= \[t \in [0,T)\]" style="border:none;">上。</p>
