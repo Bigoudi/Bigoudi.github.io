@@ -78,7 +78,6 @@
 <meta property="og:site_name" content="Bigoudi&#39;s Blog">
 <meta property="og:description" content="Beyond Correlation Filters: Learning Continuous Convolution Operators for Visual Tracking传统的DCF模型（如SRDCF）采用handcrafted或CNN等特征，但这些特征都是单一分辨率的，即每个通道的特征图的分辨率都是相同的。为了能够将多种分辨率的特征（例如，卷积网络不同层的特征图，层数越深，特征图越小）整">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl= \[t \in [0,T)\]">
 <meta property="og:image" content="http://i1.bvimg.com/612246/010d6b8466a020c8.jpg">
 <meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl= \[\{ {x_1},...,{x_j},...{x_M}\} \]">
 <meta property="og:image" content="http://i1.bvimg.com/612246/8b15e51c671150b2.jpg">
@@ -87,11 +86,11 @@
 <meta property="og:image" content="http://i2.bvimg.com/612246/5e19ae1a5543a611.jpg">
 <meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl= \[t \in [0,T)\]">
 <meta property="og:image" content="http://i1.bvimg.com/612246/904fa353356c6297.png">
-<meta property="og:updated_time" content="2017-09-19T14:44:18.877Z">
+<meta property="og:updated_time" content="2017-09-20T01:16:54.016Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C-COT核心思想">
 <meta name="twitter:description" content="Beyond Correlation Filters: Learning Continuous Convolution Operators for Visual Tracking传统的DCF模型（如SRDCF）采用handcrafted或CNN等特征，但这些特征都是单一分辨率的，即每个通道的特征图的分辨率都是相同的。为了能够将多种分辨率的特征（例如，卷积网络不同层的特征图，层数越深，特征图越小）整">
-<meta name="twitter:image" content="http://chart.googleapis.com/chart?cht=tx&chl= \[t \in [0,T)\]">
+<meta name="twitter:image" content="http://i1.bvimg.com/612246/010d6b8466a020c8.jpg">
 
 
 
@@ -406,13 +405,13 @@
       
 
       
-        <h2 id="Beyond-Correlation-Filters-Learning-Continuous-Convolution-Operators-for-Visual-Tracking"><a href="#Beyond-Correlation-Filters-Learning-Continuous-Convolution-Operators-for-Visual-Tracking" class="headerlink" title="Beyond Correlation Filters: Learning Continuous Convolution Operators for Visual Tracking"></a>Beyond Correlation Filters: Learning Continuous Convolution Operators for Visual Tracking</h2><p>传统的DCF模型（如SRDCF）采用handcrafted或CNN等特征，但这些特征都是单一分辨率的，即每个通道的特征图的分辨率都是相同的。为了能够将多种分辨率的特征（例如，卷积网络不同层的特征图，层数越深，特征图越小）整合在一起，C-COT提出将卷积过程转换到一个连续域。这个连续域指的是<br><img src="http://chart.googleapis.com/chart?cht=tx&chl= \[t \in [0,T)\]" style="border:none;">。</p>
+        <h2 id="Beyond-Correlation-Filters-Learning-Continuous-Convolution-Operators-for-Visual-Tracking"><a href="#Beyond-Correlation-Filters-Learning-Continuous-Convolution-Operators-for-Visual-Tracking" class="headerlink" title="Beyond Correlation Filters: Learning Continuous Convolution Operators for Visual Tracking"></a>Beyond Correlation Filters: Learning Continuous Convolution Operators for Visual Tracking</h2><p>传统的DCF模型（如SRDCF）采用handcrafted或CNN等特征，但这些特征都是单一分辨率的，即每个通道的特征图的分辨率都是相同的。为了能够将多种分辨率的特征（例如，卷积网络不同层的特征图，层数越深，特征图越小）整合在一起，C-COT提出将卷积过程转换到一个连续域。这个连续域指的是自变量t在[0,T）范围内。</p>
 <hr>
-<p>下面结合公式来描述：</p>
+<p><strong>下面结合公式来描述：</strong></p>
 <blockquote>
-<p>首先介绍连续域时，即t在[0,T）范围内时，卷积运算的定义如下：<br><img src="http://i1.bvimg.com/612246/010d6b8466a020c8.jpg" alt=""></p>
+<p>首先介绍连续域时，即t在[0,T）范围内时，卷积运算的定义如下：<br><img src="http://i1.bvimg.com/612246/010d6b8466a020c8.jpg" alt="Alt text"></p>
 </blockquote>
-<p>(1)假设有<strong>M</strong>个训练样本：<img src="http://chart.googleapis.com/chart?cht=tx&chl= \[\{ {x_1},...,{x_j},...{x_M}\} \]" style="border:none;"></p>
+<p>假设有<strong>M</strong>个训练样本：<img src="http://chart.googleapis.com/chart?cht=tx&chl= \[\{ {x_1},...,{x_j},...{x_M}\} \]" style="border:none;"></p>
 <p>每个样本的空间为<img src="http://i1.bvimg.com/612246/8b15e51c671150b2.jpg" alt=""></p>
 <p>(2)其中N1是第一通道特征图的分辨率,ND是第D个通道的空间点个数。</p>
 <p>(3)每个训练样本有D个通道（即有D个通道的特征）：<img src="http://i1.bvimg.com/612246/a3e3e111c32ba91f.jpg" alt=""></p>
