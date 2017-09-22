@@ -83,6 +83,8 @@
 <meta property="og:image" content="http://i4.bvimg.com/612246/d4c58bbcfb832d33.jpg">
 <meta property="og:image" content="http://i4.bvimg.com/612246/af63bc861a78585f.jpg">
 <meta property="og:image" content="http://i4.bvimg.com/612246/0ceb1461fb6ac796.png">
+<meta property="og:image" content="http://i2.bvimg.com/612246/0fb9a9e652e1981c.jpg">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl= \[F(x,y;w) = \left\langle {w,\Psi (x,y)} \right\rangle \]">
 <meta property="og:image" content="http://i2.bvimg.com/612246/18e5a4cdd1c93d3e.jpg">
 <meta property="og:image" content="http://i2.bvimg.com/612246/28453a3a1011e1b2.jpg">
 <meta property="og:image" content="http://i2.bvimg.com/612246/a78d0b1daa11209d.jpg">
@@ -94,7 +96,7 @@
 <meta property="og:image" content="http://i2.bvimg.com/612246/c774d0a423c84520.jpg">
 <meta property="og:image" content="http://i2.bvimg.com/612246/2bfb960b2f8e1761.jpg">
 <meta property="og:image" content="http://i2.bvimg.com/612246/ccda42162dc6b440.jpg">
-<meta property="og:updated_time" content="2017-09-22T07:37:49.150Z">
+<meta property="og:updated_time" content="2017-09-22T07:50:09.841Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LMCF——the large margin tracking method with circulant feature maps">
 <meta name="twitter:description" content="the large margin tracking method with circulant feature maps利用循环移位样本的特征图(circulant feature maps)与一个向量的内积，作为是目标的可能性；  目标函数的约束条件：使得目标中心处的patch是目标的可能性大于（w,h）处是目标的可能性超过一个距离。意为large margin！！  a fast optimi">
@@ -425,14 +427,19 @@
 <p><strong>（3）非线性模型的求解：是需要求解参数alpha，由公式可计算出w（计算公式如下图）</strong></p>
 <p><img src="http://i4.bvimg.com/612246/0ceb1461fb6ac796.png" alt="Markdown"></p>
 </blockquote>
-<h1 id="多峰目标检测"><a href="#多峰目标检测" class="headerlink" title="多峰目标检测"></a>多峰目标检测</h1><p>新的一帧到来时，通过公式(1)预测目标位置，<br>其中s是以上一帧目标位置为中心，与目标区域成比例的一个iamge patch。由前面的内容可知，求解参数w的过程可以通过FFT来加速。</p>
-<h3 id="单峰目标检测"><a href="#单峰目标检测" class="headerlink" title="单峰目标检测"></a>单峰目标检测</h3><blockquote>
+<h1 id="多峰目标检测"><a href="#多峰目标检测" class="headerlink" title="多峰目标检测"></a>多峰目标检测</h1><p>新的一帧到来时，通过公式(1)向量参数与特征图做内积得到的响应图来预测目标位置，<br><img src="http://i2.bvimg.com/612246/0fb9a9e652e1981c.jpg" alt="Markdown"></p>
+<blockquote>
+<p><strong>x</strong>是以上一帧目标位置为中心，与目标区域成比例的一个iamge patch；</p>
+<p>是目标可能性的函数<strong>F</strong>定义为两个向量的内积：<br><img src="http://chart.googleapis.com/chart?cht=tx&chl= \[F(x,y;w) = \left\langle {w,\Psi (x,y)} \right\rangle \]" style="border:none;"></p>
+<p>由前面的内容可知，求解参数w的过程可以通过FFT来加速。</p>
+</blockquote>
+<h3 id="单峰目标检测-只找最高峰"><a href="#单峰目标检测-只找最高峰" class="headerlink" title="单峰目标检测(只找最高峰)"></a>单峰目标检测(只找最高峰)</h3><blockquote>
 <p><strong>所有的循环样本的响应图放在一起，就变成了:</strong><br><img src="http://i2.bvimg.com/612246/18e5a4cdd1c93d3e.jpg" alt="Markdown"></p>
-<p><strong>寻找响应图的最高峰，作为预测的目标位置。</strong></p>
+<p><strong>寻找响应图的最高峰，作为预测的目标位置。（s是前面的x）</strong></p>
 <p><strong>解释：</strong>s的循环移位样本的特征与w做内积运算==原始image patch s的联合特征图与w做循环卷积（移位量为0时）<strong>–&gt;</strong>转换到频域，就是二者的element-wise product。</p>
 <p><strong>缺陷：</strong>然而这种检测方法是单峰检测，如果有相似物体或背景干扰存在的话，它们对应的响应值可能很接近目标甚至比目标更高，因而响应图中的最高峰可能就不是我们最终要找的目标。我们要做的不应该是把最高峰当做目标，而是将所有的峰都考虑进去（即<strong>多峰检测</strong>），从中寻找代表目标位置的那个峰。</p>
 </blockquote>
-<h3 id="多峰目标检测-1"><a href="#多峰目标检测-1" class="headerlink" title="多峰目标检测"></a>多峰目标检测</h3><p>在响应图的基础上，乘上一个与响应图大小相同的0/1矩阵B（B的元素在局部最大值处的值设为1，其余为0）。则P(s)中的非零值就表示响应图中的多峰。——其实就是把响应图中的多峰给过滤出来。</p>
+<h3 id="多峰目标检测（从多个峰里再找最高分）"><a href="#多峰目标检测（从多个峰里再找最高分）" class="headerlink" title="多峰目标检测（从多个峰里再找最高分）"></a>多峰目标检测（从多个峰里再找最高分）</h3><p>在响应图的基础上，乘上一个与响应图大小相同的0/1矩阵B（B的元素在局部最大值处的值设为1，其余为0）。则P(s)中的非零值就表示响应图中的多峰。——其实就是把响应图中的多峰给过滤出来。</p>
 <blockquote>
 <p><strong>文中这样描述：</strong></p>
 <p><img src="http://i2.bvimg.com/612246/28453a3a1011e1b2.jpg" alt="Markdown"></p>
@@ -641,7 +648,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#the-large-margin-tracking-method-with-circulant-feature-maps"><span class="nav-number">1.</span> <span class="nav-text">the large margin tracking method with circulant feature maps</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#a-fast-optimization-algorithm-that-builds-up-a-bridge-between-our-problem-formulation-and-the-well-known-correlation-filter"><span class="nav-number">2.</span> <span class="nav-text">a fast optimization algorithm that builds up a bridge between our problem formulation and the well-known correlation filter.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多峰目标检测"><span class="nav-number">3.</span> <span class="nav-text">多峰目标检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单峰目标检测"><span class="nav-number">3.0.1.</span> <span class="nav-text">单峰目标检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多峰目标检测-1"><span class="nav-number">3.0.2.</span> <span class="nav-text">多峰目标检测</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#High-coinfidence-update"><span class="nav-number">4.</span> <span class="nav-text">High-coinfidence update</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-定义两个条件："><span class="nav-number">4.1.</span> <span class="nav-text">A. 定义两个条件：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-更新条件-High-coinfidence-："><span class="nav-number">4.2.</span> <span class="nav-text">B. 更新条件(High-coinfidence)：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-这样做的结果是"><span class="nav-number">4.3.</span> <span class="nav-text">C. 这样做的结果是</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本文的算法流程图"><span class="nav-number">5.</span> <span class="nav-text">本文的算法流程图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能分析"><span class="nav-number">6.</span> <span class="nav-text">性能分析</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#the-large-margin-tracking-method-with-circulant-feature-maps"><span class="nav-number">1.</span> <span class="nav-text">the large margin tracking method with circulant feature maps</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#a-fast-optimization-algorithm-that-builds-up-a-bridge-between-our-problem-formulation-and-the-well-known-correlation-filter"><span class="nav-number">2.</span> <span class="nav-text">a fast optimization algorithm that builds up a bridge between our problem formulation and the well-known correlation filter.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多峰目标检测"><span class="nav-number">3.</span> <span class="nav-text">多峰目标检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单峰目标检测-只找最高峰"><span class="nav-number">3.0.1.</span> <span class="nav-text">单峰目标检测(只找最高峰)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多峰目标检测（从多个峰里再找最高分）"><span class="nav-number">3.0.2.</span> <span class="nav-text">多峰目标检测（从多个峰里再找最高分）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#High-coinfidence-update"><span class="nav-number">4.</span> <span class="nav-text">High-coinfidence update</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-定义两个条件："><span class="nav-number">4.1.</span> <span class="nav-text">A. 定义两个条件：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-更新条件-High-coinfidence-："><span class="nav-number">4.2.</span> <span class="nav-text">B. 更新条件(High-coinfidence)：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-这样做的结果是"><span class="nav-number">4.3.</span> <span class="nav-text">C. 这样做的结果是</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本文的算法流程图"><span class="nav-number">5.</span> <span class="nav-text">本文的算法流程图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能分析"><span class="nav-number">6.</span> <span class="nav-text">性能分析</span></a></li></ol></div>
             
 
           </div>
