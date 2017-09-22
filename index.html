@@ -273,6 +273,235 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xywang.club/2017/09/22/LMCF——the-large-margin-tracking-method-with-circulant-feature-maps/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xy Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://b-ssl.duitang.com/uploads/item/201210/01/20121001112611_HnjTn.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bigoudi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/22/LMCF——the-large-margin-tracking-method-with-circulant-feature-maps/" itemprop="url">LMCF——the large margin tracking method with circulant feature maps</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-22T15:18:03+08:00">
+                2017-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Visual-Tracking/" itemprop="url" rel="index">
+                    <span itemprop="name">Visual Tracking</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Visual-Tracking/相关滤波器系列/" itemprop="url" rel="index">
+                    <span itemprop="name">相关滤波器系列</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/09/22/LMCF——the-large-margin-tracking-method-with-circulant-feature-maps/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://xywang.club/2017/09/22/LMCF——the-large-margin-tracking-method-with-circulant-feature-maps/" class="cy_cmt_count" data-xid="2017/09/22/LMCF——the-large-margin-tracking-method-with-circulant-feature-maps/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2017/09/22/LMCF——the-large-margin-tracking-method-with-circulant-feature-maps/" class="leancloud_visitors" data-flag-title="LMCF——the large margin tracking method with circulant feature maps">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="the-large-margin-tracking-method-with-circulant-feature-maps"><a href="#the-large-margin-tracking-method-with-circulant-feature-maps" class="headerlink" title="the large margin tracking method with circulant feature maps"></a>the large margin tracking method with circulant feature maps</h1><p>利用循环移位样本的特征图(<strong>circulant feature maps</strong>)与一个向量的内积，作为是目标的可能性；</p>
+<blockquote>
+<p><strong>目标函数的约束条件：</strong>使得目标中心处的patch是目标的可能性大于（w,h）处是目标的可能性超过一个距离。<strong>意为large margin！！</strong></p>
+<p><img src="http://i2.bvimg.com/612246/2818d06f31dd54bf.png" alt="Markdown"></p>
+</blockquote>
+<h1 id="a-fast-optimization-algorithm-that-builds-up-a-bridge-between-our-problem-formulation-and-the-well-known-correlation-filter"><a href="#a-fast-optimization-algorithm-that-builds-up-a-bridge-between-our-problem-formulation-and-the-well-known-correlation-filter" class="headerlink" title="a fast optimization algorithm that builds up a bridge between our problem formulation and the well-known correlation filter."></a>a fast optimization algorithm that builds up a bridge between our problem formulation and the well-known correlation filter.</h1><p>给定了需要优化的目标函数和约束条件，利用一种与CF结合的快速在线优化算法，<strong>将求解过程转化到频域</strong>，<strong>加速了优化过程</strong>。</p>
+<blockquote>
+<p>w和z其中一个固定的话，优化过程就变得很简单了，一步即可求出来，其中w是在频域计算的。然后交替更新，优化。</p>
+</blockquote>
+<h1 id="多峰目标检测"><a href="#多峰目标检测" class="headerlink" title="多峰目标检测"></a>多峰目标检测</h1><p>新的一帧到来时，通过公式(1)预测目标位置，<br>其中s是以上一帧目标位置为中心，与目标区域成比例的一个iamge patch。由前面的内容可知，求解参数w的过程可以通过FFT来加速。</p>
+<h3 id="单峰目标检测"><a href="#单峰目标检测" class="headerlink" title="单峰目标检测"></a>单峰目标检测</h3><blockquote>
+<p><strong>所有的循环样本的响应图放在一起，就变成了:</strong><br><img src="http://i2.bvimg.com/612246/18e5a4cdd1c93d3e.jpg" alt="Markdown"></p>
+<p><strong>寻找响应图的最高峰，作为预测的目标位置。</strong></p>
+<p><strong>解释：</strong>s的循环移位样本的特征与w做内积运算==原始image patch s的联合特征图与w做循环卷积（移位量为0时）<strong>–&gt;</strong>转换到频域，就是二者的element-wise product。</p>
+<p><strong>缺陷：</strong>然而这种检测方法是单峰检测，如果有相似物体或背景干扰存在的话，它们对应的响应值可能很接近目标甚至比目标更高，因而响应图中的最高峰可能就不是我们最终要找的目标。我们要做的不应该是把最高峰当做目标，而是将所有的峰都考虑进去（即<strong>多峰检测</strong>），从中寻找代表目标位置的那个峰。</p>
+</blockquote>
+<h3 id="多峰目标检测-1"><a href="#多峰目标检测-1" class="headerlink" title="多峰目标检测"></a>多峰目标检测</h3><p>在响应图的基础上，乘上一个与响应图大小相同的0/1矩阵B（B的元素在局部最大值处的值设为1，其余为0）。则P(s)中的非零值就表示响应图中的多峰。——其实就是把响应图中的多峰给过滤出来。</p>
+<blockquote>
+<p><strong>文中这样描述：</strong></p>
+<p><img src="http://i2.bvimg.com/612246/28453a3a1011e1b2.jpg" alt="Markdown"></p>
+<p><strong>多峰响应公式：</strong><br><img src="http://i2.bvimg.com/612246/a78d0b1daa11209d.jpg" alt="Markdown"></p>
+<p><strong>多峰检测方法：</strong>当多峰和最高峰的比例超过预设的阈值时，就以这些峰所在的位置为中心，分别提取patch作为s，然后用公式15寻找每个峰所在区域的最大值点，再从中寻找最高峰，作为最终的预测目标位置。下图中间是检测到的多峰，最右是多峰检测后的最终目标位置。</p>
+<p><img src="http://i2.bvimg.com/612246/a10413831289d909.jpg" alt="Markdown"></p>
+</blockquote>
+<h1 id="High-coinfidence-update"><a href="#High-coinfidence-update" class="headerlink" title="High-coinfidence update"></a>High-coinfidence update</h1><p><strong>大多数的跟踪器不考虑检测结果是否精确，简单粗暴地每帧都更新。实际上，当目标被遮挡或消失了，或者当前帧的检测结果根本就不准确时，再用这些结果去更新模型，就会导致检测失败。</strong></p>
+<blockquote>
+<p>下图展示了目标被遮挡后继续每帧更新模型，造成后续某一帧跟踪结果错误的现象。（第一列的绿色框对应每帧更新，空色是high-coinfidence更新；第二列是LMCF本文算法的跟踪结果；第三列是每一帧都更新的跟踪结果，可以看到(f)图跟踪错了）</p>
+<p><img src="http://i2.bvimg.com/612246/3693493e89c1769c.jpg" alt="Markdown"></p>
+</blockquote>
+<p> <strong>本文：利用跟踪结果的反馈信息（跟踪结果是否足够可信），来决定是否有必要更新模型！</strong></p>
+<blockquote>
+<p><strong>理想的响应图：</strong>只有一个sharp peak（锐利的峰），其他区域平滑下降。相关峰越尖锐，检测结果越精确。</p>
+<p><strong>非理想的响应图：</strong>有很多的波动。如果继续用不确定是否是目标的区域作为训练样本去更新模型，可能导致跟踪结果出错。</p>
+</blockquote>
+<h2 id="A-定义两个条件："><a href="#A-定义两个条件：" class="headerlink" title="A. 定义两个条件："></a>A. 定义两个条件：</h2><blockquote>
+<p>Fmax = max F(s,y;w)：响应图中的最高相应分数</p>
+<p>APCE：表示响应图的波动程度和检测结果的可信度。对于更尖锐的峰和少的噪音，响应图只有一个尖锐的峰和平滑下降的区域，APCE变得更大。当目标被遮挡或消失的时候，APCE将会急剧下降。</p>
+<p><img src="http://i2.bvimg.com/612246/b93a76e4e87bd308.jpg" alt="Markdown"></p>
+</blockquote>
+<h2 id="B-更新条件-High-coinfidence-："><a href="#B-更新条件-High-coinfidence-：" class="headerlink" title="B. 更新条件(High-coinfidence)："></a>B. 更新条件(High-coinfidence)：</h2><blockquote>
+<p>当 当前帧的Fmax和APCE与它们各自的历史均值的比值超过beta1和beta2时，就认为当前帧的跟踪结果是高可信的，这个时候才选择更新模型。<br><img src="http://i2.bvimg.com/612246/5ba6cb600a169b1e.jpg" alt="Markdown"></p>
+</blockquote>
+<h2 id="C-这样做的结果是"><a href="#C-这样做的结果是" class="headerlink" title="C. 这样做的结果是"></a>C. 这样做的结果是</h2><blockquote>
+<p>防止跟踪结果不准确时还去更新模型，造成模型堕落的问题。</p>
+</blockquote>
+<hr>
+<h1 id="本文的算法流程图"><a href="#本文的算法流程图" class="headerlink" title="本文的算法流程图"></a>本文的算法流程图</h1><p><img src="http://i2.bvimg.com/612246/53dcf8f309fc9435.jpg" alt="Markdown"></p>
+<hr>
+<h1 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h1><p><strong>只和相关滤波器的跟踪算法进行了比较</strong></p>
+<p><strong>1.使用传统特征，fps可以达到85帧每秒；使用CNN特征，明显降低，变化成8f/s。但使用高层特征的精度更高。</strong></p>
+<p><img src="http://i2.bvimg.com/612246/c774d0a423c84520.jpg" alt="Markdown"></p>
+<p><strong>2.对于遮挡、光线变化等各种情况的鲁棒性都表现的最好：（平均成功率最高）</strong></p>
+<p><img src="http://i2.bvimg.com/612246/2bfb960b2f8e1761.jpg" alt="Markdown"></p>
+<p><strong>3.DeepLMCF的精度仅次于C-COT</strong></p>
+<p><img src="http://i2.bvimg.com/612246/ccda42162dc6b440.jpg" alt="Markdown"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://xywang.club/2017/09/21/第-8-章-Java集合——Collections操作集合的工具类/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1582,7 +1811,18 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Visual-Tracking/DCF系列/" itemprop="url" rel="index">
+                  <a href="/categories/Visual-Tracking/相关滤波器系列/" itemprop="url" rel="index">
+                    <span itemprop="name">相关滤波器系列</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Visual-Tracking/相关滤波器系列/DCF系列/" itemprop="url" rel="index">
                     <span itemprop="name">DCF系列</span>
                   </a>
                 </span>
@@ -1777,7 +2017,18 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Visual-Tracking/DCF系列/" itemprop="url" rel="index">
+                  <a href="/categories/Visual-Tracking/相关滤波器系列/" itemprop="url" rel="index">
+                    <span itemprop="name">相关滤波器系列</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Visual-Tracking/相关滤波器系列/DCF系列/" itemprop="url" rel="index">
                     <span itemprop="name">DCF系列</span>
                   </a>
                 </span>
@@ -1974,7 +2225,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1985,7 +2236,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
