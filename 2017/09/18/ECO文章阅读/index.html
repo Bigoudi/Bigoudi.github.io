@@ -80,17 +80,17 @@
 <meta property="og:site_name" content="Bigoudi&#39;s Blog">
 <meta property="og:description" content="Efficient Convolution Operator for Tracking(更新中…)以下均为个人理解，如有错误，欢迎指正！ AbstractDCF及其相关算法的缺陷：   使用CNN特征，卷积过程耗时，实时性不好 越来越复杂的模型，使得需要训练的参数变得非常多，容易造成过拟合   ECO针对计算复杂度和过拟合这两个问题，提出：   一个被因式分解的卷积运算： 很大程度上减少了DCF模">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://i2.bvimg.com/612246/8c7ca3936e382b9d.jpg">
-<meta property="og:image" content="http://i2.bvimg.com/612246/2951b3377bc2f589.jpg">
-<meta property="og:image" content="http://i2.bvimg.com/612246/a032734d865e1e85.jpg">
-<meta property="og:image" content="http://i2.bvimg.com/612246/4b31a4af9cd038ba.jpg">
-<meta property="og:image" content="http://i2.bvimg.com/612246/d176225b24fcfdb9.jpg">
-<meta property="og:image" content="http://i4.bvimg.com/612246/17778ac68dd4b8fd.jpg">
-<meta property="og:updated_time" content="2017-09-22T07:24:24.439Z">
+<meta property="og:image" content="http://owqdu9xu1.bkt.clouddn.com/1.JPG">
+<meta property="og:image" content="http://owqdu9xu1.bkt.clouddn.com/3.JPG">
+<meta property="og:image" content="http://owqdu9xu1.bkt.clouddn.com/5.JPG">
+<meta property="og:image" content="http://owqdu9xu1.bkt.clouddn.com/7.JPG">
+<meta property="og:image" content="http://owqdu9xu1.bkt.clouddn.com/6.JPG">
+<meta property="og:image" content="http://owqdu9xu1.bkt.clouddn.com/4.JPG">
+<meta property="og:updated_time" content="2017-09-23T11:36:29.334Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ECO文章阅读">
 <meta name="twitter:description" content="Efficient Convolution Operator for Tracking(更新中…)以下均为个人理解，如有错误，欢迎指正！ AbstractDCF及其相关算法的缺陷：   使用CNN特征，卷积过程耗时，实时性不好 越来越复杂的模型，使得需要训练的参数变得非常多，容易造成过拟合   ECO针对计算复杂度和过拟合这两个问题，提出：   一个被因式分解的卷积运算： 很大程度上减少了DCF模">
-<meta name="twitter:image" content="http://i2.bvimg.com/612246/8c7ca3936e382b9d.jpg">
+<meta name="twitter:image" content="http://owqdu9xu1.bkt.clouddn.com/1.JPG">
 
 
 
@@ -448,20 +448,20 @@
 <p>（3）<strong>模型更新：</strong> 过往的DCF都是连续每帧都对滤波器参数进行更新，但这样的更新方案对目标一点点的外观变化都非常敏感，很容易过拟合。且每帧都更新降低了速度，过拟合造成鲁棒性降低。</p>
 </blockquote>
 <h2 id="Main-Idea-of-ECO"><a href="#Main-Idea-of-ECO" class="headerlink" title="Main Idea of ECO"></a><strong>Main Idea of ECO</strong></h2><h3 id="A-因式分解滤波器，达到降维的目的，减少了需要学习的滤波器参数，降低了CG迭代算法的时间复杂度"><a href="#A-因式分解滤波器，达到降维的目的，减少了需要学习的滤波器参数，降低了CG迭代算法的时间复杂度" class="headerlink" title="A. 因式分解滤波器，达到降维的目的，减少了需要学习的滤波器参数，降低了CG迭代算法的时间复杂度"></a>A. 因式分解滤波器，达到降维的目的，减少了需要学习的滤波器参数，降低了CG迭代算法的时间复杂度</h3><blockquote>
-<p>将滤波器和特征的卷积公式进行因式分解，<br><img src="http://i2.bvimg.com/612246/8c7ca3936e382b9d.jpg" alt=""></p>
-<p>具体过程为：<br>先把原来的D个通道的滤波器分解成了一个D乘C的矩阵P和C个通道的滤波器的乘积,即{f1,f2,…,fD}=P{f1,f2,…,fC}。这样就变成了下式<img src="http://i2.bvimg.com/612246/2951b3377bc2f589.jpg" alt=""></p>
+<p>将滤波器和特征的卷积公式进行因式分解，<br><img src="http://owqdu9xu1.bkt.clouddn.com/1.JPG" alt=""></p>
+<p>具体过程为：<br>先把原来的D个通道的滤波器分解成了一个D乘C的矩阵P和C个通道的滤波器的乘积,即{f1,f2,…,fD}=P{f1,f2,…,fC}。这样就变成了下式<img src="http://owqdu9xu1.bkt.clouddn.com/3.JPG" alt=""></p>
 <p>这样做的意义在于：原来需要学习D维的滤波器，因式分解以后，只需要学习C维的滤波器和一个D*C的矩阵P就可以了。其中矩阵P在第一帧就可以学习得到。<br>经过一些列变换，学习过程又变成了利用CG方法求解一个线性的最小二乘问题。</p>
 </blockquote>
 <h3 id="B-通过高斯混合模型对训练样本进行分类，增加了样本多样性，防止过拟合"><a href="#B-通过高斯混合模型对训练样本进行分类，增加了样本多样性，防止过拟合" class="headerlink" title="B. 通过高斯混合模型对训练样本进行分类，增加了样本多样性，防止过拟合"></a>B. 通过高斯混合模型对训练样本进行分类，增加了样本多样性，防止过拟合</h3><h4 id="DCF模型的训练样本"><a href="#DCF模型的训练样本" class="headerlink" title="DCF模型的训练样本"></a>DCF模型的训练样本</h4><p>每一帧更新：新的一帧检测完毕以后，提取一个单个的训练样本，加到训练样本集中。更新时采用就近原则，丢弃老旧样本，选择最近的一些样本进行训练。这样做的缺点是：相邻帧的目标外观非常相似，造成训练样本集的信息冗余，且容易造成与最近的目标拟合的很好，和久远的目标拟合的不好的现象。</p>
 <blockquote>
-<p><img src="http://i2.bvimg.com/612246/a032734d865e1e85.jpg" alt=""></p>
+<p><img src="http://owqdu9xu1.bkt.clouddn.com/5.JPG" alt=""></p>
 </blockquote>
-<h4 id="ECO的训练样本："><a href="#ECO的训练样本：" class="headerlink" title="ECO的训练样本："></a>ECO的训练样本：</h4><p><img src="http://i2.bvimg.com/612246/4b31a4af9cd038ba.jpg" alt=""></p>
+<h4 id="ECO的训练样本："><a href="#ECO的训练样本：" class="headerlink" title="ECO的训练样本："></a>ECO的训练样本：</h4><p><img src="http://owqdu9xu1.bkt.clouddn.com/7.JPG" alt=""></p>
 <blockquote>
 <p>所以，本文<strong>利用高斯混合模型（GMM）对我们的样本集进行分类</strong>，得到 L 个不同的components,每一个组件都有一个权重和一个特征均值，用它们分别替代原来公式的样本权重和样本。这样就将训练过程中使用的样本数从M减少到了L（节省了存储空间），且增加了样本多样性（不同类别的样本均值代替）。</p>
-<p><img src="http://i2.bvimg.com/612246/d176225b24fcfdb9.jpg" alt=""></p>
+<p><img src="http://owqdu9xu1.bkt.clouddn.com/6.JPG" alt=""></p>
 <p><strong>components的更新策略：</strong>每帧更新</p>
-<p>新的一帧到来时，若components的个数超过 L，则首先用新样本建立一个独立的组件，然后：如果权值最小的组件的权重小于阈值，则丢弃；否则合并权重最小的那两个组件。<br><img src="http://i4.bvimg.com/612246/17778ac68dd4b8fd.jpg" alt=""></p>
+<p>新的一帧到来时，若components的个数超过 L，则首先用新样本建立一个独立的组件，然后：如果权值最小的组件的权重小于阈值，则丢弃；否则合并权重最小的那两个组件。<br><img src="http://owqdu9xu1.bkt.clouddn.com/4.JPG" alt=""></p>
 </blockquote>
 <h4 id="两种训练样本的对比："><a href="#两种训练样本的对比：" class="headerlink" title="两种训练样本的对比："></a>两种训练样本的对比：</h4><p>原来的DCF模型每一帧更新：新的一阵检测完毕后，首先提取一个新样本，添加到训练样本中，然后选择最近的N个样本对滤波器参数进行学习和更新，作为下一帧的迭代初始值；</p>
 <p>而ECO选择不那么频繁的更新策略：每Ns（约等于5帧）进行更新。当新的一帧检测完毕后，首先提取新样本，用于更新components构成的训练样本。当间隔时间达到5帧时，利用components构成的训练样本对滤波器参数和矩阵增量进行学习和更新。</p>
