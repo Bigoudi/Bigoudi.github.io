@@ -73,16 +73,22 @@
 
 
 
+<meta name="description" content="2017CVPR目标跟踪算法中，针对C-COT的改进有两个:ECO和CSR-DCF 二者各有长短：ECO精度明显更好，CSR-DCF速度更快 ECO是目前针对DCF模型改进最好的算法：精度和速度都有提升，但是速度还是挺慢的  特征降维 分类训练样本，使其更加多样化 不再每帧更新（固定间隔更新）  CSR-DCF 对C-COT的滤波器加了一个权重矩阵，并对每个通道增加了权重  （1）用空间置信图来调">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第 8 章  Java集合——Queue集合">
-<meta property="og:url" content="http://xywang.club/2017/09/21/第-8-章-Java集合——Queue集合/index.html">
+<meta property="og:title" content="CSR-DCF &amp; SRDCF权重矩阵的区别">
+<meta property="og:url" content="http://xywang.club/2017/09/25/CSR-DCF-SRDCF权重矩阵的区别/index.html">
 <meta property="og:site_name" content="Bigoudi&#39;s Blog">
+<meta property="og:description" content="2017CVPR目标跟踪算法中，针对C-COT的改进有两个:ECO和CSR-DCF 二者各有长短：ECO精度明显更好，CSR-DCF速度更快 ECO是目前针对DCF模型改进最好的算法：精度和速度都有提升，但是速度还是挺慢的  特征降维 分类训练样本，使其更加多样化 不再每帧更新（固定间隔更新）  CSR-DCF 对C-COT的滤波器加了一个权重矩阵，并对每个通道增加了权重  （1）用空间置信图来调">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://owqdu9xu1.bkt.clouddn.com/Xshot-0004.png">
-<meta property="og:updated_time" content="2017-09-23T11:50:48.280Z">
+<meta property="og:image" content="http://owqdu9xu1.bkt.clouddn.com/2erst.JPG">
+<meta property="og:image" content="http://owqdu9xu1.bkt.clouddn.com/%E6%8D%95%E8%8E%B71.JPG">
+<meta property="og:image" content="http://owqdu9xu1.bkt.clouddn.com/fps.JPG">
+<meta property="og:image" content="http://owqdu9xu1.bkt.clouddn.com/Image.png">
+<meta property="og:updated_time" content="2017-09-25T02:18:51.130Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第 8 章  Java集合——Queue集合">
-<meta name="twitter:image" content="http://owqdu9xu1.bkt.clouddn.com/Xshot-0004.png">
+<meta name="twitter:title" content="CSR-DCF &amp; SRDCF权重矩阵的区别">
+<meta name="twitter:description" content="2017CVPR目标跟踪算法中，针对C-COT的改进有两个:ECO和CSR-DCF 二者各有长短：ECO精度明显更好，CSR-DCF速度更快 ECO是目前针对DCF模型改进最好的算法：精度和速度都有提升，但是速度还是挺慢的  特征降维 分类训练样本，使其更加多样化 不再每帧更新（固定间隔更新）  CSR-DCF 对C-COT的滤波器加了一个权重矩阵，并对每个通道增加了权重  （1）用空间置信图来调">
+<meta name="twitter:image" content="http://owqdu9xu1.bkt.clouddn.com/2erst.JPG">
 
 
 
@@ -112,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://xywang.club/2017/09/21/第-8-章-Java集合——Queue集合/"/>
+  <link rel="canonical" href="http://xywang.club/2017/09/25/CSR-DCF-SRDCF权重矩阵的区别/"/>
 
 
 
 
 
-  <title>第 8 章  Java集合——Queue集合 | Bigoudi's Blog</title>
+  <title>CSR-DCF & SRDCF权重矩阵的区别 | Bigoudi's Blog</title>
   
 
 
@@ -275,7 +281,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xywang.club/2017/09/21/第-8-章-Java集合——Queue集合/">
+    <link itemprop="mainEntityOfPage" href="http://xywang.club/2017/09/25/CSR-DCF-SRDCF权重矩阵的区别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="xy Wang">
@@ -292,7 +298,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">第 8 章  Java集合——Queue集合</h1>
+          <h1 class="post-title" itemprop="name headline">CSR-DCF & SRDCF权重矩阵的区别</h1>
         
 
         <div class="post-meta">
@@ -304,8 +310,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-21T09:45:17+08:00">
-                2017-09-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-25T09:51:48+08:00">
+                2017-09-25
               </time>
             
 
@@ -327,19 +333,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/《疯狂Java讲义阅读笔记》/" itemprop="url" rel="index">
-                    <span itemprop="name">《疯狂Java讲义阅读笔记》</span>
+                  <a href="/categories/Visual-Tracking/" itemprop="url" rel="index">
+                    <span itemprop="name">-Visual Tracking</span>
                   </a>
                 </span>
 
@@ -357,8 +352,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2017/09/21/第-8-章-Java集合——Queue集合/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/09/21/第-8-章-Java集合——Queue集合/" itemprop="commentsCount"></span>
+                <a href="/2017/09/25/CSR-DCF-SRDCF权重矩阵的区别/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/09/25/CSR-DCF-SRDCF权重矩阵的区别/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -366,7 +361,7 @@
 
           
           
-             <span id="/2017/09/21/第-8-章-Java集合——Queue集合/" class="leancloud_visitors" data-flag-title="第 8 章  Java集合——Queue集合">
+             <span id="/2017/09/25/CSR-DCF-SRDCF权重矩阵的区别/" class="leancloud_visitors" data-flag-title="CSR-DCF & SRDCF权重矩阵的区别">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -397,7 +392,23 @@
       
 
       
-        <p><img src="http://owqdu9xu1.bkt.clouddn.com/Xshot-0004.png" alt=""></p>
+        <p>2017CVPR目标跟踪算法中，针对C-COT的改进有两个:ECO和CSR-DCF</p>
+<p>二者各有长短：ECO精度明显更好，CSR-DCF速度更快<br><img src="http://owqdu9xu1.bkt.clouddn.com/2erst.JPG" alt=""><br><img src="http://owqdu9xu1.bkt.clouddn.com/%E6%8D%95%E8%8E%B71.JPG" alt=""><br><img src="http://owqdu9xu1.bkt.clouddn.com/fps.JPG" alt=""></p>
+<h3 id="ECO"><a href="#ECO" class="headerlink" title="ECO"></a>ECO</h3><p>是目前针对DCF模型改进最好的算法：精度和速度都有提升，但是速度还是挺慢的</p>
+<blockquote>
+<p>特征降维</p>
+<p>分类训练样本，使其更加多样化</p>
+<p>不再每帧更新（固定间隔更新）</p>
+</blockquote>
+<h3 id="CSR-DCF"><a href="#CSR-DCF" class="headerlink" title="CSR-DCF"></a>CSR-DCF</h3><blockquote>
+<p>对C-COT的滤波器加了一个权重矩阵，并对每个通道增加了权重</p>
+</blockquote>
+<p><strong>（1）用空间置信图来调整滤波器，决定在学习滤波器参数的过程中，哪些像素应该被忽略。</strong></p>
+<p><strong>效果是：</strong>学习到滤波器有响应的区域与空间置信图的相应区域相同，如图。<br><img src="http://owqdu9xu1.bkt.clouddn.com/Image.png" alt=""></p>
+<p><strong>（2）这和SRDCF的不同点在于：</strong></p>
+<p>SRDCF在目标函数中加入一个权重矩阵w，使得学习到的滤波器在背景区域的参数很小，解决了DCF在非目标区域也有响应的缺点（w是中间小边缘大）；</p>
+<p>CSR-DCF直接用一个空间置信图使最后学习到的滤波器参数只是集中在置信分数高的地方，其他区域几乎为0。（w相当于权重，把非目标区域直接略过了）这样的话，搜索区域可以任意大，也不影响。</p>
+<p>二者都实现了抑制背景信息的目的，但w的意义不同，求解方式也不同。</p>
 
       
     </div>
@@ -422,8 +433,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/21/第8章-Java集合——Collection-Set集合/" rel="next" title="第8章  Java集合——Collection & Set集合">
-                <i class="fa fa-chevron-left"></i> 第8章  Java集合——Collection & Set集合
+              <a href="/2017/09/23/第16章-多线程/" rel="next" title="第16章 多线程">
+                <i class="fa fa-chevron-left"></i> 第16章 多线程
               </a>
             
           </div>
@@ -431,10 +442,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/21/第-8-章-Java集合——Map集合/" rel="prev" title="第 8 章 Java集合——Map集合">
-                第 8 章 Java集合——Map集合 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -488,8 +495,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <img class="site-author-image" itemprop="image"
@@ -553,6 +569,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ECO"><span class="nav-number">1.</span> <span class="nav-text">ECO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSR-DCF"><span class="nav-number">2.</span> <span class="nav-text">CSR-DCF</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
